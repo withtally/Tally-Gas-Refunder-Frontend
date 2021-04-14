@@ -17,19 +17,7 @@ const SiteLayoutLayout = ({ children }) => {
           <Text fontSize="2xl" fontWeight="bold">
             Gas Refunder
           </Text>
-          <Flex>
-            <Select
-              placeholder="Select Network"
-              maxWidth="190px"
-              marginRight="15px"
-            >
-              <option value="mainnet">Mainnet</option>
-              <option value="rinkeby">Rinkeby</option>
-              <option value="ropsten">Ropsten</option>
-              <option value="goerli">Goerli</option>
-            </Select>
-            <Web3Connect />
-          </Flex>
+          <Web3Connect />
         </Flex>
 
         <Flex
