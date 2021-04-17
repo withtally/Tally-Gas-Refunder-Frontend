@@ -14,7 +14,6 @@ const Web3Connect = () => {
     account,
     chainId,
   } = useEthers()
-  console.log('Active? ', active)
   const [isLargerThan900] = useMediaQuery('(min-width: 900px)')
 
   console.log('Account: ', account)

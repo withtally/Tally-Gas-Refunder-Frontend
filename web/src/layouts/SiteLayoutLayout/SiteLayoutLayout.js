@@ -35,7 +35,7 @@ const SiteLayoutLayout = ({ children }) => {
           margin="1.5em"
           minHeight="3em"
         >
-          <Text fontSize="lg">
+          <Text fontSize="sm">
             Open source project funded by the Compound Grants Committee, built
             by Tally.
           </Text>

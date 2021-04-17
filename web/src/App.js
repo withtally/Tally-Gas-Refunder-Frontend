@@ -2,7 +2,7 @@ import { FatalErrorBoundary } from '@redwoodjs/web'
 import { RedwoodApolloProvider } from '@redwoodjs/web/apollo'
 import { ChakraProvider } from '@chakra-ui/react'
 import { ChainId, DAppProvider } from '@usedapp/core'
-
+import { QueryClient, QueryClientProvider } from 'react-query'
 import FatalErrorPage from 'src/pages/FatalErrorPage'
 import Routes from 'src/Routes'
 
@@ -16,13 +16,17 @@ const config = {
   },
 }
 
+const queryClient = new QueryClient()
+
 const App = () => (
   <FatalErrorBoundary page={FatalErrorPage}>
     <RedwoodApolloProvider>
       <ChakraProvider>
-        <DAppProvider config={config}>
-          <Routes />
-        </DAppProvider>
+        <QueryClientProvider client={queryClient}>
+          <DAppProvider config={config}>
+            <Routes />
+          </DAppProvider>
+        </QueryClientProvider>
       </ChakraProvider>
     </RedwoodApolloProvider>
   </FatalErrorBoundary>
