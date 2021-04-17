@@ -1,6 +1,8 @@
 import { Link, routes } from '@redwoodjs/router'
-
+import { useEthers} from "@usedapp/core"
 const CreateRefunderPage = () => {
+
+  const {} = useEthers()
   return (
     <>
       <h1>CreateRefunderPage</h1>

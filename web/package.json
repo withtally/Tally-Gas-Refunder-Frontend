@@ -21,14 +21,13 @@
     "@redwoodjs/router": "^0.28.4",
     "@redwoodjs/web": "^0.28.4",
     "@usedapp/core": "^0.3.13",
+    "ethers": "^5.1.0",
     "fetch": "^1.1.0",
     "framer-motion": "^4",
-    "graphql-request": "^3.4.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^4.2.0",
-    "react-query": "^3.13.9",
     "web3modal": "^1.9.3"
   }
 }

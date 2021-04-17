@@ -8,11 +8,14 @@ import {
   Th,
   Td,
   TableCaption,
+  Spinner,
+  Button,
+  Flex,
+  Text,
 } from '@chakra-ui/react'
-import { useQuery, useQueryErrorResetBoundary } from 'react-query'
-import { GraphQLClient, gql } from 'graphql-request'
-import { useEffect, useState } from 'react'
 
+import RefunderTableElement from '../../components/RefunderTableElement'
+import { useEffect, useState } from 'react'
 const HomePage = () => {
   const subgraphURL =
     'https://api.thegraph.com/subgraphs/name/withtally/gas-refunder-grant-ropsten'
@@ -27,10 +30,6 @@ const HomePage = () => {
   }`
 
   const [refunders, setRefunders] = useState([])
-  console.log(
-    '🚀 ~ file: HomePage.js ~ line 30 ~ HomePage ~ refunders',
-    refunders
-  )
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -48,12 +47,39 @@ const HomePage = () => {
     getAllRefunders()
   }, [])
 
-  if (loading) return <> Loading </>
+  if (loading)
+    return (
+      <>
+        {' '}
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="blue.500"
+          size="xl"
+        />
+      </>
+    )
 
   return (
-    <>
-      <Table variant="simple" maxWidth="70%">
-        <TableCaption>List of all Refunder Contracts</TableCaption>
+    <Flex flexDirection="column">
+      <Flex
+        alignItems="center"
+        justifyContent="space-between"
+        marginBottom="2em"
+        maxWidth="100%"
+      >
+        <Text fontWeight="bold" fontSize="xl">
+          Refunder Contracts
+        </Text>
+        <Link to={routes.createRefunder()}>
+          <Button colorScheme="teal" size="xs">
+            Create Refunder
+          </Button>
+        </Link>
+      </Flex>
+      <Table maxWidth="70%" border="1px" borderRadius="2px">
+        {/* <TableCaption>List of all Refunder Contracts</TableCaption> */}
         <Thead>
           <Tr>
             <Th>Contract Address</Th>
@@ -62,14 +88,8 @@ const HomePage = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {refunders.map((re, index) => {
-            return (
-              <Tr key={index}>
-                <Td>{re.id}</Td>
-                <Td isNumeric>balance</Td>
-                <Td isNumeric>{re.version}</Td>
-              </Tr>
-            )
+          {refunders.map((refunder, index) => {
+            return <RefunderTableElement key={index} refunder={refunder} />
           })}
         </Tbody>
         <Tfoot>
@@ -80,7 +100,7 @@ const HomePage = () => {
           </Tr> */}
         </Tfoot>
       </Table>
-    </>
+    </Flex>
   )
 }
 

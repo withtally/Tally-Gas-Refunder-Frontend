@@ -14,9 +14,11 @@ const SiteLayoutLayout = ({ children }) => {
           margin="1.5em"
           minHeight="3em"
         >
-          <Text fontSize="2xl" fontWeight="bold">
-            Gas Refunder
-          </Text>
+          <Link to={routes.home()}>
+            <Text fontSize="2xl" fontWeight="bold">
+              Tally Gas Refunder
+            </Text>
+          </Link>
           <Web3Connect />
         </Flex>
 

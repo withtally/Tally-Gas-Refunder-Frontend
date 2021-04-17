@@ -13,13 +13,13 @@ import SiteLayoutLayout from 'src/layouts/SiteLayoutLayout'
 const Routes = () => {
   return (
     <Router>
-    <Route path="/refundables" page={RefundablesPage} name="refundables" />
-    <Set wrap={SiteLayoutLayout}>
-      <Route path="/create-refunder" page={CreateRefunderPage} name="createRefunder" />
-      <Route path="/single-refunder" page={SingleRefunderPage} name="singleRefunder" />
-      <Route path="/all-refunders" page={AllRefundersPage} name="allRefunders" />
-      <Route path="/" page={HomePage} name="home" />
-      <Route notfound page={NotFoundPage} />
+      <Set wrap={SiteLayoutLayout}>
+        <Route path="/refundables" page={RefundablesPage} name="refundables" />
+        <Route path="/create-refunder" page={CreateRefunderPage} name="createRefunder" />
+        <Route path="/single-refunder" page={SingleRefunderPage} name="singleRefunder" />
+        <Route path="/all-refunders" page={AllRefundersPage} name="allRefunders" />
+        <Route path="/" page={HomePage} name="home" />
+        <Route notfound page={NotFoundPage} />
       </Set>
     </Router>
   )
