@@ -30,6 +30,9 @@ import {
 } from '@usedapp/core'
 import { query } from '../../common/queries/refundablesByRefunder'
 
+import Deposit from '../../components/Deposit'
+import Withdraw from '../../components/Withdraw'
+
 const RefundablesPage = ({ refunder }) => {
   const subgraphURL =
     'https://api.thegraph.com/subgraphs/name/withtally/gas-refunder-grant-ropsten'
@@ -112,12 +115,8 @@ const RefundablesPage = ({ refunder }) => {
           <Text fontSize="sm">Refund Count: {refunderState.refundCount}</Text>
         </Flex>
         <Flex justifyContent="flex-start" marginTop="1.5em">
-          <Button size="sm" marginRight="1em">
-            Deposit
-          </Button>
-          <Button size="sm" marginRight="1em">
-            Withdraw
-          </Button>
+          <Deposit contractAddress={refunderState.id} />
+          <Withdraw contractAddress={refunderState.id}  balance={refunderState.balance}/>
           <Button size="sm" marginRight="1em">
             Add Refundable
           </Button>
