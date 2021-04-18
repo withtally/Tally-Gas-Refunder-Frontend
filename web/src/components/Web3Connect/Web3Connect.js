@@ -6,6 +6,11 @@ import {
 } from '@usedapp/core'
 import { useMediaQuery } from '@chakra-ui/react'
 import { Button, Flex, Link, Text, Tooltip } from '@chakra-ui/react'
+import { useEffect } from 'react'
+
+// hooks
+import { useLocalStorage } from '../../common/hooks/useLocalStorage'
+
 const Web3Connect = () => {
   const {
     activateBrowserWallet,
@@ -16,16 +21,23 @@ const Web3Connect = () => {
   } = useEthers()
   const [isLargerThan900] = useMediaQuery('(min-width: 900px)')
 
-  console.log('Account: ', account)
+  const [persistConnection, setPersistConnection] = useLocalStorage("walletConnection", false);
+
+  useEffect(() => {
+    if (persistConnection) activateBrowserWallet()
+  }, [active, activateBrowserWallet])
 
   const connectControl = () => {
     if (account) {
+      setPersistConnection(false)
       deactivate()
       return
       // Maybe add a toast here?
     }
+    setPersistConnection(true)
     activateBrowserWallet()
   }
+
   return (
     <Flex alignItems="center">
       {account ? (

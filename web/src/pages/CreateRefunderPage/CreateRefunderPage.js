@@ -1,19 +1,27 @@
-import { Link, routes } from '@redwoodjs/router'
-import { useEthers} from "@usedapp/core"
-const CreateRefunderPage = () => {
+import { Text, Flex } from '@chakra-ui/layout'
 
-  const {} = useEthers()
+import CreateRefunder from '../../components/CreateRefunder'
+const CreateRefunderPage = () => {
   return (
     <>
-      <h1>CreateRefunderPage</h1>
-      <p>
-        Find me in{' '}
-        <code>./web/src/pages/CreateRefunderPage/CreateRefunderPage.js</code>
-      </p>
-      <p>
-        My default route is named <code>createRefunder</code>, link to me with `
-        <Link to={routes.createRefunder()}>CreateRefunder</Link>`
-      </p>
+      <Flex flexDirection="column" maxWidth="70%">
+        <Flex justifyContent="space-between">
+          <Text fontSize="2xl" fontWeight="semibold" marginBottom="1em">
+            Create Refunder
+          </Text>
+          <CreateRefunder />
+        </Flex>
+        <Text>
+          Refunders are contracts responsible for refunding eligble
+          transactions. On this page you can create a new refunder which is
+          deployed from an onchain factory contract.{' '}
+        </Text>
+        <br />
+        <Text>
+          Once deployed, the contract can be managed by its owner (the address
+          which deployed it) from the &quot;Refunder&quot; page.
+        </Text>
+      </Flex>
     </>
   )
 }

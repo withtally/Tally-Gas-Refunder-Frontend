@@ -16,7 +16,6 @@ import { useEffect, useState } from 'react'
 import { getExplorerAddressLink, useEthers } from '@usedapp/core'
 
 const RefundablesPage = ({ refunder }) => {
-  console.log('Refunder: ', refunder)
   const subgraphURL =
     'https://api.thegraph.com/subgraphs/name/withtally/gas-refunder-grant-ropsten'
 
@@ -34,7 +33,6 @@ const RefundablesPage = ({ refunder }) => {
   const { chainId } = useEthers()
   const [refundables, setRefundables] = useState([])
   const [loading, setLoading] = useState(true)
-  console.log('refundables: ', refundables)
   useEffect(() => {
     const getRefundables = async () => {
       const data = await fetch(subgraphURL, {
@@ -44,7 +42,6 @@ const RefundablesPage = ({ refunder }) => {
           query,
         }),
       }).then((res) => res.json())
-      console.log('data', data)
       setRefundables(data.data.refundables)
       setLoading(false)
     }

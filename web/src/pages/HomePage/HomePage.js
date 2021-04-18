@@ -26,6 +26,10 @@ const HomePage = () => {
       owner
       maxGasPrice
       version
+      isPaused
+      refundCount
+      depositCount
+      withdrawlCount
     }
   }`
 
@@ -82,9 +86,12 @@ const HomePage = () => {
         {/* <TableCaption>List of all Refunder Contracts</TableCaption> */}
         <Thead>
           <Tr>
-            <Th>Contract Address</Th>
+            <Th>Contract</Th>
+            <Th>Owner</Th>
             <Th isNumeric>Balance</Th>
             <Th isNumeric>Version</Th>
+            <Th isNumeric>Refunds</Th>
+            <Th>Status</Th>
           </Tr>
         </Thead>
         <Tbody>
