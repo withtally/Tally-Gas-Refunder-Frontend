@@ -13,31 +13,38 @@ import {
   useDisclosure,
   FormControl,
   FormLabel,
-  Input
+  Input,
 } from '@chakra-ui/react'
-import { useEthers, useContractFunction } from '@usedapp/core'
+import { useEthers, useContractFunction, useEtherBalance } from '@usedapp/core'
 import { Contract, utils } from 'ethers'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Refunder from '../../common/ABI/Refunder.json'
 
-const Withdraw = ({ contractAddress, owner, balance }) => {
-  console.log('🚀 ~ file: Withdraw.js ~ line 9 ~ Withdraw ~ balance', balance)
+const Withdraw = ({ contractAddress }) => {
+  const balance = useEtherBalance(contractAddress)
+  const { library } = useEthers()
+  const [withdrawlAmount, setWithdrawlAmount] = useState('0')
 
-  const toast = useToast()
-  const { library, account } = useEthers()
-  const [withdrawlAmount, setWithdrawlAmount] = useState(balance.toString())
   const { isOpen, onOpen, onClose } = useDisclosure()
-
-  const initialRef = React.useRef()
-  const finalRef = React.useRef()
 
   const contract = new Contract(
     contractAddress,
     Refunder.abi,
     library.getSigner()
   )
-  const { state, send } = useContractFunction(contract, 'withdraw')
+  const { state, send } = useContractFunction(contract, 'withdraw', {
+    transactionName: 'Withdraw',
+  })
+  console.log('🚀 ~ file: Withdraw.js ~ line 37 ~ Withdraw ~ state', state)
+
+  useEffect(() => {
+    if (balance) setWithdrawlAmount(balance.toString())
+  }, [balance])
+
+  //Modal Refs
+  const initialRef = React.useRef()
+  const finalRef = React.useRef()
 
   return (
     <>
@@ -58,15 +65,27 @@ const Withdraw = ({ contractAddress, owner, balance }) => {
           <ModalBody pb={6}>
             <FormControl>
               <FormLabel>Amount</FormLabel>
-              <Input ref={initialRef} placeholder="First name" value={balance}/>
+              <Input
+                ref={initialRef}
+                placeholder="Withdraw Amount"
+                value={withdrawlAmount}
+                onChange={(e) => setWithdrawlAmount(e.target.value)}
+              />
             </FormControl>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3}>
-              Save
+            <Button
+              colorScheme={state.status == 'Success' ? 'green' : 'blue'}
+              mr={3}
+              isLoading={state.status == 'Mining' ? true : false}
+              onClick={() => send(withdrawlAmount)}
+            >
+              {state.status == 'Success' ? 'success' : 'withdraw'}
             </Button>
-            <Button onClick={onClose}>Cancel</Button>
+            <Button onClick={onClose}>
+              {state.status == 'Success' ? 'Close' : 'Cancel'}
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

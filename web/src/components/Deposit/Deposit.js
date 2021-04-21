@@ -15,7 +15,7 @@ import {
   FormLabel,
   Input,
 } from '@chakra-ui/react'
-import { useEthers, useContractFunction } from '@usedapp/core'
+import { useEthers, useContractFunction, useNotifications } from '@usedapp/core'
 import { Contract, utils } from 'ethers'
 import { useState } from 'react'
 
@@ -26,10 +26,8 @@ const Deposit = ({ contractAddress }) => {
     '🚀 ~ file: Deposit.js ~ line 6 ~ Deposit ~ contractAddress',
     contractAddress
   )
-  const toast = useToast()
   const { library } = useEthers()
   const [depositAmount, setDepositAmount] = useState(utils.parseEther('0.05'))
-  console.log("🚀 ~ file: Deposit.js ~ line 32 ~ Deposit ~ depositAmount", depositAmount)
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const contract = new Contract(
@@ -37,9 +35,7 @@ const Deposit = ({ contractAddress }) => {
     Refunder.abi,
     library.getSigner()
   )
-console.log("Contract: ", contract)
   const { state, send } = useContractFunction(contract, '')
-  console.log("🚀 ~ file: Deposit.js ~ line 42 ~ Deposit ~ state", state)
 
   const initialRef = React.useRef()
   const finalRef = React.useRef()
@@ -64,8 +60,8 @@ console.log("Contract: ", contract)
               <FormLabel>Amount</FormLabel>
               <Input
                 ref={initialRef}
-                placeholder="First name"
-                value={depositAmount || 0}
+                placeholder="Deposit Amount"
+                value={depositAmount}
                 onChange={(e) => setDepositAmount(e.target.value)}
               />
             </FormControl>
@@ -73,13 +69,16 @@ console.log("Contract: ", contract)
 
           <ModalFooter>
             <Button
-              colorScheme="blue"
+              colorScheme={state.status == 'Success' ? 'green' : 'blue'}
               mr={3}
-              onClick={() => send({ value: utils.formatEther(depositAmount) })}
+              isLoading={state.status == 'Mining' ? true : false}
+              onClick={() => send({ value: depositAmount })}
             >
               Deposit
             </Button>
-            <Button onClick={onClose}>Cancel</Button>
+            <Button onClick={onClose}>
+              {state.status == 'Success' ? 'Close' : 'Cancel'}
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
