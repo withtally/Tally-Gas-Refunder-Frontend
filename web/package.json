@@ -23,6 +23,7 @@
     "@usedapp/core": "^0.3.13",
     "ethers": "^5.1.0",
     "fetch": "^1.1.0",
+    "formik": "^2.2.6",
     "framer-motion": "^4",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",

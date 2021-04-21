@@ -76,8 +76,8 @@ const RefundablesPage = ({ refunder }) => {
     <>
       <Flex flexDirection="column" width="70vw">
         <Flex flexDirection="column" marginBottom=".5em">
-          <Text fontSize="md">
-            Refunder:{' '}
+          <Text fontSize="xl" fontWeight="extrabold">
+            REFUNDER:{' '}
             {refunderState?.owner == account?.toLocaleLowerCase() ? (
               <Badge size="xs" variant="subtle" colorScheme="green">
                 You are the Owner
@@ -121,8 +121,8 @@ const RefundablesPage = ({ refunder }) => {
             contractAddress={refunderState.id}
             balance={refunderState.balance}
           />
-          <Button size="sm">Set max Gas price</Button>
-          <AddRefundable />
+          <Button size="sm" marginRight="1em" >Set max Gas price</Button>
+          <AddRefundable contractAddress={refunderState.id} />
         </Flex>
 
         <Accordion marginTop="1.5em" allowToggle>

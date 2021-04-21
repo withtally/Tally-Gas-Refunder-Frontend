@@ -22,10 +22,7 @@ import { useState } from 'react'
 import Refunder from '../../common/ABI/Refunder.json'
 
 const Deposit = ({ contractAddress }) => {
-  console.log(
-    '🚀 ~ file: Deposit.js ~ line 6 ~ Deposit ~ contractAddress',
-    contractAddress
-  )
+
   const { library } = useEthers()
   const [depositAmount, setDepositAmount] = useState(utils.parseEther('0.05'))
   const { isOpen, onOpen, onClose } = useDisclosure()

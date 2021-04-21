@@ -36,7 +36,6 @@ const Withdraw = ({ contractAddress }) => {
   const { state, send } = useContractFunction(contract, 'withdraw', {
     transactionName: 'Withdraw',
   })
-  console.log('🚀 ~ file: Withdraw.js ~ line 37 ~ Withdraw ~ state', state)
 
   useEffect(() => {
     if (balance) setWithdrawlAmount(balance.toString())
