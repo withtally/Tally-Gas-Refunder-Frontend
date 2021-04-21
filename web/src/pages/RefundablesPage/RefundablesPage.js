@@ -32,6 +32,7 @@ import { query } from '../../common/queries/refundablesByRefunder'
 
 import Deposit from '../../components/Deposit'
 import Withdraw from '../../components/Withdraw'
+import AddRefundable from '../../components/AddRefundable'
 
 const RefundablesPage = ({ refunder }) => {
   const subgraphURL =
@@ -77,7 +78,7 @@ const RefundablesPage = ({ refunder }) => {
         <Flex flexDirection="column" marginBottom=".5em">
           <Text fontSize="md">
             Refunder:{' '}
-            {refunderState?.owner == account.toLocaleLowerCase() ? (
+            {refunderState?.owner == account?.toLocaleLowerCase() ? (
               <Badge size="xs" variant="subtle" colorScheme="green">
                 You are the Owner
               </Badge>
@@ -116,10 +117,12 @@ const RefundablesPage = ({ refunder }) => {
         </Flex>
         <Flex justifyContent="flex-start" marginTop="1.5em">
           <Deposit contractAddress={refunderState.id} />
-          <Withdraw contractAddress={refunderState.id}  balance={refunderState.balance}/>
-          <Button size="sm" marginRight="1em">
-            Add Refundable
-          </Button>
+          <Withdraw
+            contractAddress={refunderState.id}
+            balance={refunderState.balance}
+          />
+          <Button size="sm">Set max Gas price</Button>
+          <AddRefundable />
         </Flex>
 
         <Accordion marginTop="1.5em" allowToggle>
