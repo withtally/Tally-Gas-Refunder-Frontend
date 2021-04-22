@@ -33,6 +33,7 @@ import { query } from '../../common/queries/refundablesByRefunder'
 import Deposit from '../../components/Deposit'
 import Withdraw from '../../components/Withdraw'
 import AddRefundable from '../../components/AddRefundable'
+import PauseRefundable from '../../components/PauseRefundable'
 
 const RefundablesPage = ({ refunder }) => {
   const subgraphURL =
@@ -40,6 +41,10 @@ const RefundablesPage = ({ refunder }) => {
 
   const { chainId, account } = useEthers()
   const [refunderState, setRefunderState] = useState(null)
+  console.log(
+    '🚀 ~ file: RefundablesPage.js ~ line 43 ~ RefundablesPage ~ refunderState',
+    refunderState
+  )
   const [isLargerThan828] = useMediaQuery('(min-width: 828px)')
 
   const [loading, setLoading] = useState(true)
@@ -87,6 +92,11 @@ const RefundablesPage = ({ refunder }) => {
                 You are not the Owner
               </Badge>
             )}
+            {refunderState?.isPaused ? (
+              <Badge size="xs" colorScheme="red" marginLeft="1em">
+                Paused
+              </Badge>
+            ) : null}
           </Text>
           <Text
             fontSize="2xl"
@@ -121,8 +131,14 @@ const RefundablesPage = ({ refunder }) => {
             contractAddress={refunderState.id}
             balance={refunderState.balance}
           />
-          <Button size="sm" marginRight="1em" >Set max Gas price</Button>
+          <Button size="sm" marginRight="1em">
+            Set max Gas price
+          </Button>
           <AddRefundable contractAddress={refunderState.id} />
+          <PauseRefundable
+            contractAddress={refunderState.id}
+            isPaused={refunderState.isPaused}
+          />
         </Flex>
 
         <Accordion marginTop="1.5em" allowToggle>
@@ -146,11 +162,11 @@ const RefundablesPage = ({ refunder }) => {
                   <Tr>
                     <Th>Refund Target</Th>
                     <Th>Function Signature</Th>
-                    <Th>Pause/Enable</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
                   {refunderState.refundables.map((re, index) => {
+                    console.log('RED: ', re)
                     return (
                       <Tr key={index}>
                         <Td>
@@ -162,11 +178,6 @@ const RefundablesPage = ({ refunder }) => {
                           </Link>
                         </Td>
                         <Td>{re.identifier}</Td>
-                        <Td>
-                          <Button size="xs">
-                            {re.isPaused ? 'enable' : 'pause'}
-                          </Button>
-                        </Td>
                       </Tr>
                     )
                   })}
