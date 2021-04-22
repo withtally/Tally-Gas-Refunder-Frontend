@@ -29,10 +29,12 @@ export const refundablesByRefunder = (refunder) => `
     deposits{
       value
       depositor
+      txHash
     }
     withdrawls {
       value
       recipient
+      txHash
     }
     refundables{
       target
@@ -55,6 +57,7 @@ export const refundablesByRefunder = (refunder) => `
         target
         identifier
         refund
+        txHash
     }
   }
 }

@@ -27,11 +27,15 @@ import {
   useEthers,
   shortenAddress,
 } from '@usedapp/core'
-import { refundablesByRefunder as query} from '../../common/queries/queries'
+import { refundablesByRefunder as query } from '../../common/queries/queries'
 import Deposit from '../../components/Deposit'
 import Withdraw from '../../components/Withdraw'
 import AddRefundable from '../../components/AddRefundable'
 import PauseRefundable from '../../components/PauseRefundable'
+import RefundableTargetList from '../../components/RefundableTargetList'
+import RefundableRefundsList from '../../components/RefundableRefundsList'
+import DepositList from '../../components/DepositList'
+import WithdrawlList from '../../components/WithdrawlList'
 
 const RefundablesPage = ({ refunder }) => {
   const subgraphURL =
@@ -39,6 +43,10 @@ const RefundablesPage = ({ refunder }) => {
 
   const { chainId, account } = useEthers()
   const [refunderState, setRefunderState] = useState(null)
+  console.log(
+    '🚀 ~ file: RefundablesPage.js ~ line 45 ~ RefundablesPage ~ refunderState',
+    refunderState
+  )
   const [isLargerThan800] = useMediaQuery('(min-width: 800px)')
 
   const [loading, setLoading] = useState(true)
@@ -118,7 +126,6 @@ const RefundablesPage = ({ refunder }) => {
           </Text>
           <Text fontSize="sm">Refund Count: {refunderState.refundCount}</Text>
           <Text fontSize="sm">Max Gas Price: {refunderState.maxGasPrice}</Text>
-
         </Flex>
         <Flex
           justifyContent="flex-start"
@@ -129,7 +136,6 @@ const RefundablesPage = ({ refunder }) => {
           <Withdraw
             contractAddress={refunderState.id}
             balance={refunderState.balance}
-
           />
           <Button size="sm" margin="1em">
             Set max Gas price
@@ -138,7 +144,6 @@ const RefundablesPage = ({ refunder }) => {
           <PauseRefundable
             contractAddress={refunderState.id}
             isPaused={refunderState.isPaused}
-
           />
         </Flex>
 
@@ -153,37 +158,9 @@ const RefundablesPage = ({ refunder }) => {
               </AccordionButton>
             </h2>
             <AccordionPanel pb={4}>
-              <Table
-                size="sm"
-                varient="striped"
-                colorScheme="gray"
-                marginTop="2em"
-              >
-                <Thead>
-                  <Tr>
-                    <Th>Refund Target</Th>
-                    <Th>Function Signature</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {refunderState.refundables.map((re, index) => {
-                    return (
-                      <Tr key={index}>
-                        <Td>
-                          <Link
-                            href={getExplorerAddressLink(re.target, chainId)}
-                            isExternal
-                          >
-                            <Text fontSize="sm">{re.target}</Text>
-                          </Link>
-                        </Td>
-                        <Td>{re.identifier}</Td>
-                      </Tr>
-                    )
-                  })}
-                </Tbody>
-                <Tfoot></Tfoot>
-              </Table>
+              <RefundableTargetList
+                refunderRefundables={refunderState.refundables}
+              />
             </AccordionPanel>
           </AccordionItem>
           <AccordionItem>
@@ -195,7 +172,9 @@ const RefundablesPage = ({ refunder }) => {
                 <AccordionIcon />
               </AccordionButton>
             </h2>
-            <AccordionPanel pb={4}>All refunds</AccordionPanel>
+            <AccordionPanel pb={4}>
+              <RefundableRefundsList refunderRefunds={refunderState.refunds} />
+            </AccordionPanel>
           </AccordionItem>
           <AccordionItem>
             <h2>
@@ -206,7 +185,9 @@ const RefundablesPage = ({ refunder }) => {
                 <AccordionIcon />
               </AccordionButton>
             </h2>
-            <AccordionPanel pb={4}>All refunds</AccordionPanel>
+            <AccordionPanel pb={4}>
+              <DepositList deposits={refunderState.deposits} />
+            </AccordionPanel>
           </AccordionItem>
           <AccordionItem>
             <h2>
@@ -217,7 +198,9 @@ const RefundablesPage = ({ refunder }) => {
                 <AccordionIcon />
               </AccordionButton>
             </h2>
-            <AccordionPanel pb={4}>All refunds</AccordionPanel>
+            <AccordionPanel pb={4}>
+              <WithdrawlList withdrawls={refunderState.withdrawls} />
+            </AccordionPanel>
           </AccordionItem>
         </Accordion>
       </Flex>
