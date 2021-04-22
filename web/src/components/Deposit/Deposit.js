@@ -39,7 +39,7 @@ const Deposit = ({ contractAddress }) => {
 
   return (
     <>
-      <Button size="sm" marginRight="1em" ref={finalRef} onClick={onOpen}>
+      <Button size="sm" marginRight="1em" ref={finalRef} onClick={onOpen} margin="1em">
         Deposit
       </Button>
       <Modal

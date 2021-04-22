@@ -1,14 +1,10 @@
 import { Button } from '@chakra-ui/react'
-import { utils, Contract } from 'ethers'
-import { useContractFunction, useContractCall, useEthers } from '@usedapp/core'
+import { Contract } from 'ethers'
+import { useContractFunction, useEthers } from '@usedapp/core'
 import Refunder from '../../common/ABI/Refunder.json'
 
 const PauseRefundable = ({ isPaused, contractAddress }) => {
-  console.log(
-    '🚀 ~ file: PauseRefundable.js ~ line 7 ~ PauseRefundable ~ isPaused',
-    isPaused
-  )
-  const { library, account } = useEthers()
+  const { library } = useEthers()
   const contract = new Contract(
     contractAddress,
     Refunder.abi,
@@ -28,10 +24,7 @@ const PauseRefundable = ({ isPaused, contractAddress }) => {
   //     status
   //   )
 
-  const { state, send } = useContractFunction(
-    contract,
-    isPaused ? 'unpause' : 'pause'
-  )
+  const { send } = useContractFunction(contract, isPaused ? 'unpause' : 'pause')
 
   return (
     <>
@@ -41,6 +34,7 @@ const PauseRefundable = ({ isPaused, contractAddress }) => {
         onClick={() => send()}
         bgColor={isPaused ? 'green.300' : 'red.300'}
         textColor="white"
+        margin="1em"
       >
         {isPaused ? 'Enable' : 'Pause'}
       </Button>

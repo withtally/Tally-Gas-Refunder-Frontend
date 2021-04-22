@@ -7,7 +7,6 @@ import {
   Tr,
   Th,
   Td,
-  TableCaption,
   Link,
   Text,
   Spinner,
@@ -41,11 +40,7 @@ const RefundablesPage = ({ refunder }) => {
 
   const { chainId, account } = useEthers()
   const [refunderState, setRefunderState] = useState(null)
-  console.log(
-    '🚀 ~ file: RefundablesPage.js ~ line 43 ~ RefundablesPage ~ refunderState',
-    refunderState
-  )
-  const [isLargerThan828] = useMediaQuery('(min-width: 828px)')
+  const [isLargerThan800] = useMediaQuery('(min-width: 800px)')
 
   const [loading, setLoading] = useState(true)
   useEffect(() => {
@@ -66,7 +61,6 @@ const RefundablesPage = ({ refunder }) => {
   if (loading)
     return (
       <>
-        {' '}
         <Spinner
           thickness="4px"
           speed="0.65s"
@@ -105,7 +99,7 @@ const RefundablesPage = ({ refunder }) => {
             bgClip="text"
           >
             <Link href={getExplorerAddressLink(refunder, chainId)}>
-              {isLargerThan828 ? refunder : shortenAddress(refunder)}
+              {isLargerThan800 ? refunder : shortenAddress(refunder)}
             </Link>
           </Text>
           <Flex>
@@ -125,19 +119,25 @@ const RefundablesPage = ({ refunder }) => {
           </Text>
           <Text fontSize="sm">Refund Count: {refunderState.refundCount}</Text>
         </Flex>
-        <Flex justifyContent="flex-start" marginTop="1.5em">
+        <Flex
+          justifyContent="flex-start"
+          marginTop="1.5em"
+          flexDirection={isLargerThan800 ? 'row' : 'column'}
+        >
           <Deposit contractAddress={refunderState.id} />
           <Withdraw
             contractAddress={refunderState.id}
             balance={refunderState.balance}
+
           />
-          <Button size="sm" marginRight="1em">
+          <Button size="sm" margin="1em">
             Set max Gas price
           </Button>
-          <AddRefundable contractAddress={refunderState.id} />
+          <AddRefundable contractAddress={refunderState.id} margin="1em" />
           <PauseRefundable
             contractAddress={refunderState.id}
             isPaused={refunderState.isPaused}
+
           />
         </Flex>
 
@@ -166,7 +166,6 @@ const RefundablesPage = ({ refunder }) => {
                 </Thead>
                 <Tbody>
                   {refunderState.refundables.map((re, index) => {
-                    console.log('RED: ', re)
                     return (
                       <Tr key={index}>
                         <Td>

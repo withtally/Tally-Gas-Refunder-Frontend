@@ -47,7 +47,7 @@ const Withdraw = ({ contractAddress }) => {
 
   return (
     <>
-      <Button size="sm" marginRight="1em" onClick={onOpen} ref={finalRef}>
+      <Button size="sm" marginRight="1em" onClick={onOpen} ref={finalRef} margin="1em">
         Withdraw
       </Button>
 

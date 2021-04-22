@@ -108,7 +108,7 @@ const AddRefundable = ({ contractAddress }) => {
 
   return (
     <>
-      <Button size="sm" marginRight="1em" onClick={onOpen} ref={finalRef}>
+      <Button size="sm" margin="1em" onClick={onOpen} ref={finalRef}>
         Add Refundable
       </Button>
 
