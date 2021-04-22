@@ -36,6 +36,7 @@ import RefundableTargetList from '../../components/RefundableTargetList'
 import RefundableRefundsList from '../../components/RefundableRefundsList'
 import DepositList from '../../components/DepositList'
 import WithdrawlList from '../../components/WithdrawlList'
+import SetMaxGasPrice from 'src/components/SetMaxGasPrice/SetMaxGasPrice'
 
 const RefundablesPage = ({ refunder }) => {
   const subgraphURL =
@@ -119,13 +120,21 @@ const RefundablesPage = ({ refunder }) => {
           </Flex>
         </Flex>
         <Flex justifyContent="space-between">
-          <Text fontSize="sm">Balance: {refunderState.balance}</Text>
-          <Text fontSize="sm">Deposit Count: {refunderState.depositCount}</Text>
-          <Text fontSize="sm">
+          <Text fontSize="xs" fontWeight="extrabold">
+            Balance: {refunderState.balance}
+          </Text>
+          <Text fontSize="xs" fontWeight="extrabold">
+            Deposit Count: {refunderState.depositCount}
+          </Text>
+          <Text fontSize="xs" fontWeight="extrabold">
             Withdrawl Count: {refunderState.withdrawlCount}
           </Text>
-          <Text fontSize="sm">Refund Count: {refunderState.refundCount}</Text>
-          <Text fontSize="sm">Max Gas Price: {refunderState.maxGasPrice}</Text>
+          <Text fontSize="xs" fontWeight="extrabold">
+            Refund Count: {refunderState.refundCount}
+          </Text>
+          <Text fontSize="xs" fontWeight="extrabold">
+            Max Gas Price: {refunderState.maxGasPrice}
+          </Text>
         </Flex>
         <Flex
           justifyContent="flex-start"
@@ -137,9 +146,7 @@ const RefundablesPage = ({ refunder }) => {
             contractAddress={refunderState.id}
             balance={refunderState.balance}
           />
-          <Button size="sm" margin="1em">
-            Set max Gas price
-          </Button>
+          <SetMaxGasPrice contractAddress={refunderState.id} />
           <AddRefundable contractAddress={refunderState.id} margin="1em" />
           <PauseRefundable
             contractAddress={refunderState.id}
@@ -147,16 +154,15 @@ const RefundablesPage = ({ refunder }) => {
           />
         </Flex>
 
-        <Accordion marginTop="1.5em" allowToggle>
+        <Accordion marginTop="1.5em" allowToggle colorScheme="blackAlpha">
           <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Box flex="1" textAlign="left">
-                  Targets
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
+            <AccordionButton>
+              <Box flex="1" textAlign="left">
+                <Text fontWeight="bold">TARGETS</Text>
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+
             <AccordionPanel pb={4}>
               <RefundableTargetList
                 refunderRefundables={refunderState.refundables}
@@ -164,40 +170,37 @@ const RefundablesPage = ({ refunder }) => {
             </AccordionPanel>
           </AccordionItem>
           <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Box flex="1" textAlign="left">
-                  Refunds
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
+            <AccordionButton>
+              <Box flex="1" textAlign="left">
+                <Text fontWeight="bold">REFUNDS</Text>
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+
             <AccordionPanel pb={4}>
               <RefundableRefundsList refunderRefunds={refunderState.refunds} />
             </AccordionPanel>
           </AccordionItem>
           <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Box flex="1" textAlign="left">
-                  Deposits
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
+            <AccordionButton>
+              <Box flex="1" textAlign="left">
+                <Text fontWeight="bold">DEPOSITS</Text>
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+
             <AccordionPanel pb={4}>
               <DepositList deposits={refunderState.deposits} />
             </AccordionPanel>
           </AccordionItem>
           <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Box flex="1" textAlign="left">
-                  Withdrawls
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
+            <AccordionButton>
+              <Box flex="1" textAlign="left">
+                <Text fontWeight="bold">WITHDRAWLS</Text>
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+
             <AccordionPanel pb={4}>
               <WithdrawlList withdrawls={refunderState.withdrawls} />
             </AccordionPanel>
