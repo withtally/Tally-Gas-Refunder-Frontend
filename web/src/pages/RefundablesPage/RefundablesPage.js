@@ -27,8 +27,7 @@ import {
   useEthers,
   shortenAddress,
 } from '@usedapp/core'
-import { query } from '../../common/queries/refundablesByRefunder'
-
+import { refundablesByRefunder as query} from '../../common/queries/queries'
 import Deposit from '../../components/Deposit'
 import Withdraw from '../../components/Withdraw'
 import AddRefundable from '../../components/AddRefundable'
@@ -118,6 +117,8 @@ const RefundablesPage = ({ refunder }) => {
             Withdrawl Count: {refunderState.withdrawlCount}
           </Text>
           <Text fontSize="sm">Refund Count: {refunderState.refundCount}</Text>
+          <Text fontSize="sm">Max Gas Price: {refunderState.maxGasPrice}</Text>
+
         </Flex>
         <Flex
           justifyContent="flex-start"

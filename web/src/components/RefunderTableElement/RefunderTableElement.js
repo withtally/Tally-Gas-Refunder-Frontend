@@ -19,7 +19,7 @@ const RefunderTableElement = ({ refunder }) => {
   const [isLargerThan1100] = useMediaQuery('(min-width: 1100px)')
   const { chainId } = useEthers()
 
-
+console.log("Refunder: ", refunder)
   return (
     <Tr>
       <Td>
@@ -35,9 +35,10 @@ const RefunderTableElement = ({ refunder }) => {
       <Td isNumeric>{balance ? utils.formatEther(balance) : '0'}</Td>
       <Td isNumeric>{refunder.version}</Td>
       <Td isNumeric>{refunder.refundCount}</Td>
+      <Td isNumeric>{refunder.refundableCount}</Td>
       <Td>
         {refunder.isPaused ? (
-          <Badge colorScheme="green">Paused</Badge>
+          <Badge colorScheme="red">Paused</Badge>
         ) : (
           <Badge colorScheme="green">Active</Badge>
         )}

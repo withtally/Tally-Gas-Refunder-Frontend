@@ -16,23 +16,11 @@ import {
 
 import RefunderTableElement from '../../components/RefunderTableElement'
 import { useEffect, useState } from 'react'
+
+import { getAllRefundersQuery } from '../../common/queries/queries'
+import { subgraphURL } from '../../common/API/api'
+
 const HomePage = () => {
-  const subgraphURL =
-    'https://api.thegraph.com/subgraphs/name/withtally/gas-refunder-grant-ropsten'
-
-  const query = `{
-    refunders{
-      id
-      owner
-      maxGasPrice
-      version
-      isPaused
-      refundCount
-      depositCount
-      withdrawlCount
-    }
-  }`
-
   const [refunders, setRefunders] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -42,7 +30,7 @@ const HomePage = () => {
         headers: new Headers(),
         method: 'POST',
         body: JSON.stringify({
-          query,
+          query: getAllRefundersQuery(),
         }),
       }).then((res) => res.json())
       setRefunders(data.data.refunders)
@@ -91,6 +79,7 @@ const HomePage = () => {
             <Th isNumeric>Balance</Th>
             <Th isNumeric>Version</Th>
             <Th isNumeric>Refunds</Th>
+            <Th isNumeric>Refundables</Th>
             <Th>Status</Th>
           </Tr>
         </Thead>
