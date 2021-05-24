@@ -16,7 +16,7 @@ const SiteLayoutLayout = ({ children }) => {
         >
           <Link to={routes.home()}>
             <Text fontSize="2xl" fontWeight="bold">
-              Tally Gas Refunder
+              Gas Refunder
             </Text>
           </Link>
           <Web3Connect />

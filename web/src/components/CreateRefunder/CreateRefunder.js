@@ -1,18 +1,23 @@
 import { Contract } from 'ethers'
 import { useToast, Button } from '@chakra-ui/react'
 import { useEthers, useContractFunction } from '@usedapp/core'
-import { useEffect } from 'react'
+import { useRefunderAddress } from '../../common/hooks/useRefunderAddress'
 import Factory from '../../common/ABI/RefunderFactory.json'
+import { useEffect, useState } from 'react'
 
 const CreateRefunder = () => {
-  const toast = useToast()
-  const { library } = useEthers()
+  const { library, chainId } = useEthers()
 
-  const contract = new Contract(
-    '0xB5A62b20551b88623c8ef082af3b8c929d89f221',
-    Factory.abi,
-    library.getSigner()
-  )
+  const contractAddress = useRefunderAddress(chainId)
+  const [contract, setContract] = useState(null)
+
+  useEffect(() => {
+    if (contractAddress) {
+      setContract(
+        new Contract(contractAddress, Factory.abi, library.getSigner())
+      )
+    }
+  }, [contractAddress, library])
 
   const { state, send } = useContractFunction(contract, 'createRefunder')
 
@@ -40,6 +45,14 @@ const CreateRefunder = () => {
         <Button colorScheme="red" onClick={() => send()}>
           Fail
         </Button>
+      </>
+    )
+  }
+
+  if (!contractAddress) {
+    return (
+      <>
+        <Button>Invalid Network</Button>
       </>
     )
   }

@@ -15,14 +15,13 @@ const config = {
   },
 }
 
-
 const App = () => (
   <FatalErrorBoundary page={FatalErrorPage}>
     <RedwoodApolloProvider>
       <ChakraProvider>
-          <DAppProvider config={config}>
-            <Routes />
-          </DAppProvider>
+        <DAppProvider config={config}>
+          <Routes />
+        </DAppProvider>
       </ChakraProvider>
     </RedwoodApolloProvider>
   </FatalErrorBoundary>
