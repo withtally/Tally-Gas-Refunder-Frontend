@@ -16,7 +16,7 @@ import {
 
 import RefunderTableElement from '../../components/RefunderTableElement'
 import { useEffect, useState } from 'react'
-import { useEthers } from '@usedapp/core'
+import { useEthers, getChainName } from '@usedapp/core'
 
 import { getAllRefundersQuery } from '../../common/queries/queries'
 import { useSubgraphEndpoint } from '../../common/hooks/useSubgraphEndpoint'
@@ -61,12 +61,35 @@ const HomePage = () => {
 
   if (!subgraphURL)
     return (
-      <>
-        <Text>
-          There is no refunder deployed on this network. Please select a
-          different Network
-        </Text>
-      </>
+      <Flex flexDirection="column">
+        <Flex
+          alignItems="center"
+          justifyContent="space-between"
+          marginBottom="2em"
+          maxWidth="100%"
+        >
+          <Flex flexDirection="column">
+            <Flex justifyContent="space-between">
+              <Text fontWeight="bold" fontSize="xl">
+                Refunder Contracts
+              </Text>
+              <Text
+                fontSize="xl"
+                fontWeight="bold"
+                marginRight="15px"
+                bgGradient="linear(to-l, #7928CA,#FF0080)"
+                bgClip="text"
+              >
+                {getChainName(chainId)}
+              </Text>
+            </Flex>
+            <Text>
+              There are no refunder contracts deployed on this network. Please
+              change network.
+            </Text>
+          </Flex>
+        </Flex>
+      </Flex>
     )
 
   return (
@@ -79,6 +102,15 @@ const HomePage = () => {
       >
         <Text fontWeight="bold" fontSize="xl">
           Refunder Contracts
+        </Text>
+        <Text
+          fontSize="xl"
+          fontWeight="bold"
+          marginRight="15px"
+          bgGradient="linear(to-l, #7928CA,#FF0080)"
+          bgClip="text"
+        >
+          {getChainName(chainId)}
         </Text>
         <Link to={routes.createRefunder()}>
           <Button colorScheme="teal" size="xs">
