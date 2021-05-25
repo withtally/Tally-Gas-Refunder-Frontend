@@ -44,10 +44,6 @@ const RefundablesPage = ({ refunder }) => {
 
   const { chainId, account } = useEthers()
   const [refunderState, setRefunderState] = useState(null)
-  console.log(
-    '🚀 ~ file: RefundablesPage.js ~ line 45 ~ RefundablesPage ~ refunderState',
-    refunderState
-  )
   const [isLargerThan800] = useMediaQuery('(min-width: 800px)')
 
   const [loading, setLoading] = useState(true)

@@ -10,19 +10,7 @@ const PauseRefundable = ({ isPaused, contractAddress }) => {
     Refunder.abi,
     library.getSigner()
   )
-  // console.log("Contract: ", contract)
-  //   const status = useContractCall(
-  //     account && {
-  //       abi: Refunder.abi,
-  //       address: contractAddress,
-  //       method: 'paused',
-  //       args: [],
-  //     }
-  //   )
-  //   console.log(
-  //     '🚀 ~ file: PauseRefundable.js ~ line 16 ~ PauseRefundable ~ status',
-  //     status
-  //   )
+
 
   const { send } = useContractFunction(contract, isPaused ? 'unpause' : 'pause')
 

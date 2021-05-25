@@ -16,11 +16,14 @@ import {
 
 import RefunderTableElement from '../../components/RefunderTableElement'
 import { useEffect, useState } from 'react'
+import { useEthers } from '@usedapp/core'
 
 import { getAllRefundersQuery } from '../../common/queries/queries'
-import { subgraphURL } from '../../common/API/api'
+import { useSubgraphEndpoint } from '../../common/hooks/useSubgraphEndpoint'
 
 const HomePage = () => {
+  const { chainId } = useEthers()
+  const subgraphURL = useSubgraphEndpoint(chainId)
   const [refunders, setRefunders] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -36,10 +39,13 @@ const HomePage = () => {
       setRefunders(data.data.refunders)
       setLoading(false)
     }
-    getAllRefunders()
-  }, [])
 
-  if (loading)
+    if (subgraphURL) {
+      getAllRefunders()
+    }
+  }, [subgraphURL, chainId])
+
+  if (subgraphURL && loading)
     return (
       <>
         {' '}
@@ -50,6 +56,16 @@ const HomePage = () => {
           color="blue.500"
           size="xl"
         />
+      </>
+    )
+
+  if (!subgraphURL)
+    return (
+      <>
+        <Text>
+          There is no refunder deployed on this network. Please select a
+          different Network
+        </Text>
       </>
     )
 
