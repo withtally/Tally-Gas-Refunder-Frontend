@@ -7,8 +7,7 @@ export function useSubgraphEndpoint(chainId) {
 
     switch (chainId) {
       case 1: // Mainnet
-        console.error('Invalid ChainId: No contract deployed on this chain')
-        setSubgraphURL(null)
+        setSubgraphURL(process.env.MAINNET_SUBGRAPH)
         break
       case 3: // Ropsten
       setSubgraphURL(process.env.ROPSTEN_SUBGRAPH)
