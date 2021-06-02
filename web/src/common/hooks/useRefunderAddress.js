@@ -7,8 +7,7 @@ export function useRefunderAddress(chainId) {
 
     switch (chainId) {
       case 1: // Mainnet
-        console.error('Invalid ChainId: No contract deployed on this chain')
-        setAddress(null)
+        setAddress(process.env.REFUNDER_MAINNET)
         break
       case 3: // Ropsten
         setAddress(process.env.REFUNDER_ROPSTEN)

@@ -1,4 +1,3 @@
-import { routes } from '@redwoodjs/router'
 import {
   Table,
   Thead,
@@ -22,6 +21,7 @@ import {
   useMediaQuery,
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
+import { navigate, routes } from '@redwoodjs/router'
 import {
   getExplorerAddressLink,
   useEthers,
@@ -38,29 +38,31 @@ import DepositList from '../../components/DepositList'
 import WithdrawlList from '../../components/WithdrawlList'
 import SetMaxGasPrice from 'src/components/SetMaxGasPrice/SetMaxGasPrice'
 
-const RefundablesPage = ({ refunder }) => {
-  const subgraphURL =
-    'https://api.thegraph.com/subgraphs/name/withtally/gas-refunder-grant-ropsten'
+import { useSubgraphEndpoint } from '../../common/hooks/useSubgraphEndpoint'
 
+const RefundablesPage = ({ refunder }) => {
   const { chainId, account } = useEthers()
+  const subgraphURL = useSubgraphEndpoint(chainId)
   const [refunderState, setRefunderState] = useState(null)
+  const [loading, setLoading] = useState(true)
   const [isLargerThan800] = useMediaQuery('(min-width: 800px)')
 
-  const [loading, setLoading] = useState(true)
   useEffect(() => {
     const getRefundables = async () => {
       const data = await fetch(subgraphURL, {
         headers: new Headers(),
         method: 'POST',
         body: JSON.stringify({
-          query: query(refunder),
+          query: query(refunder.toLocaleLowerCase()),
         }),
       }).then((res) => res.json())
       setRefunderState(data.data.refunder)
       setLoading(false)
     }
-    getRefundables()
-  }, [])
+    if (subgraphURL) {
+      getRefundables()
+    }
+  }, [subgraphURL, chainId, refunder])
 
   if (loading)
     return (
@@ -75,6 +77,17 @@ const RefundablesPage = ({ refunder }) => {
       </>
     )
 
+  if (!refunderState) {
+    return (
+      <>
+        <Text marginBottom="1em">
+          {' '}
+          An error has occured. Maybe you're on the wrong network?
+        </Text>
+        <Button onClick={() => navigate(routes.home())}>Home</Button>
+      </>
+    )
+  }
   return (
     <>
       <Flex flexDirection="column" width="70vw">
@@ -162,6 +175,7 @@ const RefundablesPage = ({ refunder }) => {
             <AccordionPanel pb={4}>
               <RefundableTargetList
                 refunderRefundables={refunderState.refundables}
+                refunderContractAddress={refunderState.id}
               />
             </AccordionPanel>
           </AccordionItem>
