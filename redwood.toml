@@ -7,7 +7,7 @@
 
 [web]
   port = 8910
-  apiProxyPath = "/.redwood/functions"
+  apiProxyPath = "/.netlify/functions"
   includeEnvironmentVariables = ['REFUNDER_ROPSTEN', 'ROPSTEN_SUBGRAPH']
 [api]
   port = 8911
