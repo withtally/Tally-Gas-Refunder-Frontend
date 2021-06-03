@@ -9,8 +9,8 @@
   port = 8910
   apiProxyPath = "/.netlify/functions"
   includeEnvironmentVariables = ['REFUNDER_ROPSTEN', 'ROPSTEN_SUBGRAPH']
-[api]
-  port = 8911
-  schemaPath = "./api/db/schema.prisma"
+# [api]
+#   port = 8911
+#   schemaPath = "./api/db/schema.prisma"
 [browser]
   open = true
