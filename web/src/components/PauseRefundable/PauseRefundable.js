@@ -1,7 +1,7 @@
 import { Button } from '@chakra-ui/react'
 import { Contract } from 'ethers'
 import { useContractFunction, useEthers } from '@usedapp/core'
-import Refunder from '../../common/ABI/Refunder.json'
+import Refunder from '../../common/ABI/Refunder'
 
 const PauseRefundable = ({ isPaused, contractAddress }) => {
   const { library } = useEthers()

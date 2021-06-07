@@ -20,7 +20,7 @@ import {
 } from '@chakra-ui/react'
 import { useContractFunction, useEthers } from '@usedapp/core'
 
-import Refunder from '../../common/ABI/Refunder.json'
+import Refunder from '../../common/ABI/Refunder'
 
 const AddRefundable = ({ contractAddress }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()

@@ -19,7 +19,7 @@ import { useEthers, useContractFunction, useNotifications } from '@usedapp/core'
 import { Contract, utils } from 'ethers'
 import { useState } from 'react'
 
-import Refunder from '../../common/ABI/Refunder.json'
+import Refunder from '../../common/ABI/Refunder'
 
 const Deposit = ({ contractAddress }) => {
 

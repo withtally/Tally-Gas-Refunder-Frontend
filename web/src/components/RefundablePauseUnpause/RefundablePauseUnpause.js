@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { Button, Badge } from '@chakra-ui/react'
 import { utils, Contract } from 'ethers'
 
-import Refunder from '../../common/ABI/Refunder.json'
+import Refunder from '../../common/ABI/Refunder'
 
 const RefundablePauseUnpause = ({ refundable, contractAddress }) => {
   const { chainId, library } = useEthers()
