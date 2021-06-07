@@ -19,7 +19,7 @@ import { useEthers, useContractFunction, useEtherBalance } from '@usedapp/core'
 import { Contract, utils } from 'ethers'
 import { useEffect, useState } from 'react'
 
-import Refunder from '../../common/ABI/Refunder.json'
+import Refunder from '../../common/ABI/Refunder'
 
 const Withdraw = ({ contractAddress }) => {
   const balance = useEtherBalance(contractAddress)

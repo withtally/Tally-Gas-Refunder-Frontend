@@ -2,7 +2,7 @@ import { Contract } from 'ethers'
 import { useToast, Button } from '@chakra-ui/react'
 import { useEthers, useContractFunction } from '@usedapp/core'
 import { useRefunderAddress } from '../../common/hooks/useRefunderAddress'
-import Factory from '../../common/ABI/RefunderFactory.json'
+import Factory from '../../common/ABI/RefunderFactory'
 import { useEffect, useState } from 'react'
 import { navigate, routes } from '@redwoodjs/router'
 

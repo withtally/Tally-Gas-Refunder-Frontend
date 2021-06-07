@@ -23,7 +23,7 @@ import { Contract, utils } from 'ethers'
 import { useEthers, useContractFunction, useEtherBalance } from '@usedapp/core'
 import { Form, Field, Formik } from 'formik'
 
-import Refunder from '../../common/ABI/Refunder.json'
+import Refunder from '../../common/ABI/Refunder'
 
 const SetMaxGasPrice = ({ contractAddress }) => {
   const { library } = useEthers()
