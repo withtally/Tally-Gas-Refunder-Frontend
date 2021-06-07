@@ -5,6 +5,12 @@ import { ChainId, DAppProvider } from '@usedapp/core'
 import FatalErrorPage from 'src/pages/FatalErrorPage'
 import Routes from 'src/Routes'
 
+import "typeface-open-sans";
+import "typeface-inter";
+import "typeface-montserrat";
+import "typeface-source-code-pro";
+import "typeface-dm-sans";
+
 import theme from './common/theme'
 
 import './index.css'
@@ -20,7 +26,7 @@ const config = {
 const App = () => (
   <FatalErrorBoundary page={FatalErrorPage}>
     <RedwoodApolloProvider>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <DAppProvider config={config}>
           <Routes />
         </DAppProvider>
