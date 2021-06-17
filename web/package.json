@@ -20,7 +20,7 @@
     "@redwoodjs/forms": "^0.28.4",
     "@redwoodjs/router": "^0.28.4",
     "@redwoodjs/web": "^0.28.4",
-    "@usedapp/core": "^0.3.13",
+    "@usedapp/core": "^0.3.24",
     "dotenv": "^10.0.0",
     "ethers": "^5.1.0",
     "fetch": "^1.1.0",

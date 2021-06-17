@@ -38,6 +38,11 @@ const AddRefundable = ({ contractAddress }) => {
     transactionName: 'RefundableUpdate',
   })
 
+  const generateFuncIdAsBytes = (funcId) => {
+    funcId = utils.id(funcId);
+    return utils.arrayify(funcId.substr(0, 10));
+  }
+
   useEffect(() => {
     if (state.status == 'Success') {
       setTimeout(() => {
